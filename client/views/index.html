@@ -23,10 +23,10 @@
 </head>
 
 <body ng-app="homehub">
-	<nav class="navbar navbar-fixed-left navbar-light bg-faded ng-cloak" ng-class="{ 'navbar-small': hideNavbar }" ng-controller="NavbarController">
+	<nav class="navbar navbar-fixed-left navbar-light bg-faded ng-cloak" ng-class="{ 'navbar-small': !navbarMaximized }" ng-controller="NavbarController">
 		<header class="navbar-action-group">
 			<div class="navbar-action">
-				<a id="btn-navbar-open" class="btn btn-link" ng-click="openNavbar()"><span class="typcn typcn-menu-icon" ng-class="{ 'typcn-th-menu-outline': hideNavbar, 'typcn-arrow-left': !hideNavbar }"></span></a>
+				<a id="btn-navbar-open" class="btn btn-link" ng-click="changeSize()"><span class="typcn typcn-menu-icon" ng-class="{ 'typcn-th-menu-outline': !navbarMaximized, 'typcn-arrow-left': navbarMaximized }"></span></a>
 			</div>
 		</header>
 		<div class="navbar-action-group">
@@ -34,10 +34,14 @@
 				<h3>Servicios</h3>
 			</div>
 			<div class="navbar-action">
-				<a class="btn btn-link"><span class="typcn typcn-link-outline typcn-menu-icon"></span><span class="navbar-action-name">Páginas web</span></a>
+				<a class="btn btn-link" data-toggle="popover" title="Paginas web" data-content="Permite administras las webs, así como su permiso de visionado.">
+					<span class="typcn typcn-link-outline typcn-menu-icon"></span><span class="navbar-action-name">Páginas web</span>
+				</a>
 			</div>
 			<div class="navbar-action">
-				<a class="btn btn-link"><span class="typcn typcn-th-small-outline typcn-menu-icon"></span><span class="navbar-action-name">Servicios</span></a>
+				<a class="btn btn-link" data-toggle="popover" title="Servicios" data-content="Permite administrar los servicios ofrecidos por la red.">
+					<span class="typcn typcn-th-small-outline typcn-menu-icon"></span><span class="navbar-action-name">Servicios</span>
+				</a>
 			</div>
 		</div>
 		<div class="navbar-action-group">
@@ -45,7 +49,9 @@
 				<h3>Infraestructura</h3>
 			</div>
 			<div class="navbar-action">
-				<a class="btn btn-link"><span class="typcn typcn-device-tablet typcn-menu-icon"></span><span class="navbar-action-name">Dispositivos</span></a>
+				<a class="btn btn-link" data-toggle="popover" title="Dispositivos" data-content="Permite administrar los dispositivos en la red.">
+					<span class="typcn typcn-device-tablet typcn-menu-icon"></span><span class="navbar-action-name">Dispositivos</span>
+				</a>
 			</div>
 		</div>
 		<div class="navbar-action-group">
@@ -53,10 +59,14 @@
 				<h3>Preferencias</h3>
 			</div>
 			<div class="navbar-action">
-				<a class="btn btn-link"><span class="typcn typcn-cog-outline typcn-menu-icon"></span><span class="navbar-action-name">Local</span></a>
+				<a class="btn btn-link" data-toggle="popover" title="Opciones del dispositivo" data-content="Administrar el comportamiento del dispositivo.">
+					<span class="typcn typcn-cog-outline typcn-menu-icon"></span><span class="navbar-action-name">Local</span>
+				</a>
 			</div>
 			<div class="navbar-action">
-				<a class="btn btn-link"><span class="typcn typcn-plug typcn-menu-icon"></span><span class="navbar-action-name">Red</span></a>
+				<a class="btn btn-link" data-toggle="popover" title="Opciones de red" data-content="Administrar el comportamiento del dispositivo en la red.">
+					<span class="typcn typcn-plug typcn-menu-icon"></span><span class="navbar-action-name">Red</span>
+				</a>
 			</div>
 		</div>
 	</nav>

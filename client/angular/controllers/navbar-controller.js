@@ -1,4 +1,3 @@
-app.controller("NavbarController", ["$scope", function ($scope) {
-    $scope.hideNavbar = true;
-    $scope.openNavbar = function () { $scope.hideNavbar = !$scope.hideNavbar; }
+app.controller("NavbarController", ["$scope", 'NavbarService', function ($scope, navbar) {
+    $scope.changeSize = navbar.changeSize;
 }]);
