@@ -54,7 +54,7 @@ gulp.task('build-client-styles', function () {
 gulp.watch('client/angular/**/*.js', ['build-client-angular']);
 gulp.watch('client/scripts/**/*.js', ['build-client-scripts']);
 gulp.watch('client/views/**/*.html', ['build-client-views']);
-gulp.watch('client/views/**/*.less', ['build-client-styles']);
+gulp.watch('client/styles/**/*.less', ['build-client-styles']);
 
 // Tasks
 gulp.task('build-client', [

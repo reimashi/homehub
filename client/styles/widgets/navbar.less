@@ -1,0 +1,55 @@
+.navbar-fixed-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1030;
+
+  input, a, button {
+    display: inline-block;
+  }
+}
+
+.navbar-action-group {
+  margin-bottom: 30px;
+
+  .navbar-action-group-title {
+    height: 20px;
+    line-height: 20px;
+    overflow-y: hidden;
+
+    h3 {
+      font-size: 1.0em;
+      text-transform: uppercase;
+      color: #848484;
+      font-weight: 400;
+    }
+  }
+
+  .navbar-action {
+    .navbar-action-name {
+      position: relative;
+      margin: 0 10px;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      color: #333;
+      font-weight: 400;
+    }
+  }
+}
+
+.navbar-small {
+  .navbar-action-group {
+    .navbar-action-group-title {
+      * {
+        display: none;
+      }
+    }
+
+    .navbar-action {
+      .navbar-action-name {
+        display: none;
+      }
+    }
+  }
+}
