@@ -13,6 +13,10 @@ app.config(function ($routeProvider) {
             templateUrl: 'main.html',
             controller: 'MainController'
         })
+        .when("/webs", {
+            templateUrl: 'webs.html',
+            controller: 'WebController'
+        })
         .otherwise({
             redirectTo: "/"
         });

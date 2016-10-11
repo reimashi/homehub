@@ -23,7 +23,8 @@
 </head>
 
 <body ng-app="homehub">
-	<nav class="navbar navbar-fixed-left navbar-light bg-faded ng-cloak" ng-class="{ 'navbar-small': !navbarMaximized }" ng-controller="NavbarController">
+	<nav class="navbar navbar-fixed-left navbar-light bg-faded ng-cloak" ng-class="{ 'navbar-small': !navbarMaximized }" ng-controller="NavbarController"
+		ng-show="!navbarHidden">
 		<header class="navbar-action-group">
 			<div class="navbar-action">
 				<a id="btn-navbar-open" class="btn btn-link" ng-click="changeSize()"><span class="typcn typcn-menu-icon" ng-class="{ 'typcn-th-menu-outline': !navbarMaximized, 'typcn-arrow-left': navbarMaximized }"></span></a>
@@ -34,7 +35,7 @@
 				<h3>Servicios</h3>
 			</div>
 			<div class="navbar-action">
-				<a class="btn btn-link" data-toggle="popover" title="Paginas web" data-content="Permite administras las webs, así como su permiso de visionado.">
+				<a class="btn btn-link" href="#/webs" data-toggle="popover" title="Paginas web" data-content="Permite administras las webs, así como su permiso de visionado.">
 					<span class="typcn typcn-link-outline typcn-menu-icon"></span><span class="navbar-action-name">Páginas web</span>
 				</a>
 			</div>

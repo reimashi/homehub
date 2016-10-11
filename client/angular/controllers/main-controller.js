@@ -1,3 +1,4 @@
-app.controller("MainController", ["$scope", function ($scope) {
+app.controller("MainController", ["$scope", 'NavbarService', function ($scope, navbar) {
+    navbar.hide();
     console.log("Controlador principal");
 }]);
