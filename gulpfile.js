@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     htmlmin = require('gulp-htmlmin'),
     minify = require('gulp-minify-css'),
+    nodemon = require('gulp-nodemon'),
     sourcemaps = require('gulp-sourcemaps');
 
 var config = {
@@ -50,6 +51,16 @@ gulp.task('build-client-styles', function () {
         .pipe(gulp.dest(config.basedir));
 });
 
+// Build server/run
+gulp.task('build-server-run', function () {
+    return nodemon({
+        script: 'server/index.js',
+        ext: 'js json html',
+        env: { 'NODE_ENV': 'development' },
+        watch: ["server"]
+    });
+});
+
 // File watch
 gulp.watch('client/angular/**/*.js', ['build-client-angular']);
 gulp.watch('client/scripts/**/*.js', ['build-client-scripts']);
@@ -64,6 +75,10 @@ gulp.task('build-client', [
     'build-client-views'
 ]);
 
-gulp.task('build', ['build-client']);
+gulp.task('build-server', [
+    'build-server-run'
+]);
+
+gulp.task('build', ['build-client', 'build-server']);
 
 gulp.task('default', []);

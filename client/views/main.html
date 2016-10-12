@@ -1,1 +1,52 @@
-Hello main!
+<div id="main-container">
+    <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+        <a class="navbar-brand" target="_blank" href="https://github.com/reimashi/homehub">Homehub</a>
+        <div class="pull-right" href="#">
+            <a class="btn btn-outline-success" href="#/login" ng-if="!api.loguedIn">Iniciar sesión</a>
+            <a class="btn btn-outline-success" href="#/logout" ng-if="api.loguedIn">Cerrar sesión</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="elem-link main-elem-container container-fluid" ng-repeat="web in webs">
+                <div class="input-group">
+                    <span class="input-group-addon elem-link-title"><img src="{{web.favicon}}" ng-if="web.favicon"/> {{web.name}}</span>
+                    <span class="input-group-addon" ng-if="web.proxy"><span class="typcn typcn-arrow-shuffle"></span> Proxy</span>
+                    <input type="text" class="form-control" value="{{web.proxyUrl}}" readonly="readonly" ng-if="web.proxy">
+                    <input type="text" class="form-control" value="{{web.url}}" readonly="readonly" ng-if="!web.proxy">
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button"><span class="typcn typcn-link-outline"></span> Abrir</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row-spacer"></div>
+        <div class="row">
+            <div class="card-columns">
+                <div class="elem-service card" ng-repeat="service in services">
+                    <img class="card-img-top" src="{{service.background}}" ng-if="service.background">
+                    <div class="card-block">
+                        <h4 class="card-title">
+                            <img class="card-title-icon" src="{{service.icon}}" ng-if="service.icon">
+                            {{service.name}}
+                        </h4>
+                        <ul class="list-group list-group-flush" ng-if="service.services">
+                            <li class="list-group-item" ng-repeat="sinfo in service.services">
+                                <span class="typcn typcn-link" ng-if="sinfo.type == 'web'"></span>
+                                <span class="typcn typcn-radar" ng-if="sinfo.type == 'port'"></span>
+                                <small>{{sinfo.name}}:
+                                    <span ng-if="sinfo.type == 'web'"> <a href="{{sinfo.value}}">Abrir <span class="typcn typcn-arrow-maximise"></span></a></span>
+                                    <span ng-if="sinfo.type != 'web'"> {{sinfo.value}}</span>
+                                </small>
+                            </li>
+                        </ul>
+                        <p class="card-text pull-right">
+                            <small class="text-muted" ng-if="!service.online">Parado <span class="typcn typcn-media-record" style="color: red;"></span></small>
+                            <small class="text-muted" ng-if="service.online">Iniciado <span class="typcn typcn-media-record-outline" style="color: green;"></span></small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
