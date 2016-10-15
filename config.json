@@ -7,5 +7,6 @@
         "port": 443,
         "privatekey": "privkey.pem",
         "certificate": "cert.pem"
-    }
+    },
+    "secret": "J_LDx=T-Zxpy3$Pm)]v#{@S#&)K|stN)bH2MsqOc7HzVYM=yKM2c7[r]w~iB!6H<"
 }

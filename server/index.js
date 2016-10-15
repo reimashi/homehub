@@ -22,7 +22,7 @@ function configure() {
     app.use(methodOverride());
 
     // Controladores
-    //app.use("/node", require(path.join(__dirname, "Controllers", "node"))(models));
+    app.use("/auth", require(path.join(__dirname, "controllers", "auth"))(models).Router);
 
     // Permite servir ficheros estáticos
     app.use('/', express.static(path.join(__dirname, "..", "htdocs")));
