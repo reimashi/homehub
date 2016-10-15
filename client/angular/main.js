@@ -2,7 +2,8 @@
 
 var modules = [
     'ngRoute',
-    'ngAnimate'
+    'ngAnimate',
+    'satellizer'
 ];
 
 var app = angular.module("homehub", modules);

@@ -1,10 +1,14 @@
-app.factory('ApiService', ['$rootScope', '$http', function ($rootScope, $http) {
-    $rootScope.api = {
-        loguedIn: false
-    };
-
+app.factory('ApiService', ['$rootScope', '$http', '$auth', function ($rootScope, $http, $auth) {
     return {
-        LoguedIn: $rootScope.api.loguedIn,
+        isAuthenticated: $auth.isAuthenticated,
+
+        login: function(email, password) {
+            return $auth.login({ email: String(email), password: sha256(String(password)) });
+        },
+
+        logout: function() {
+            return $auth.logout();
+        },
 
         getPublicWebs: function() {
             return new Promise(function(resolve, reject) {

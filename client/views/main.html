@@ -2,8 +2,8 @@
     <nav class="navbar navbar-fixed-top navbar-light bg-faded">
         <a class="navbar-brand" target="_blank" href="https://github.com/reimashi/homehub">Homehub</a>
         <div class="pull-right" href="#">
-            <a class="btn btn-outline-success" href="#/login" ng-if="!api.loguedIn">Iniciar sesión</a>
-            <a class="btn btn-outline-success" href="#/logout" ng-if="api.loguedIn">Cerrar sesión</a>
+            <button class="btn btn-outline-success" ng-if="!login.loguedin" data-toggle="modal" data-target="#loginModal">Iniciar sesión</button>
+            <button class="btn btn-outline-success" ng-if="login.loguedin" ng-click="doLogout()">Cerrar sesión</a>
         </div>
     </nav>
     <div class="container">
@@ -53,3 +53,4 @@
         </div>
     </div>
 </div>
+<div ng-include="'login-modal.html'"></div>
