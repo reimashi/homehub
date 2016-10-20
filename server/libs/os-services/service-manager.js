@@ -1,57 +1,19 @@
 const path = require('path');
 
-const _timeout = Symbol('timeout');
 const _services = Symbol('services');
-const _lastUpdate = Symbol('lastUpdate');
-const _timeoutHandler = Symbol('timeoutHandler');
 
-const Service = require(path.join(__dirname, "service"));
+const Service = require(path.join(__dirname, "data", "service"));
+const Monitor = require(path.join(__dirname, "util", "monitor"));
 
-class ServiceManager {
+class ServiceManager extends Monitor {
     constructor() {
-        this[_timeout] = 5000;
-        this[_timeoutHandler] = null;
-
+        super();
         this[_services] = null;
-
-        this.update();
-    }
-
-    get AutoUpdate() {
-        return this[_timeoutHandler] != null;
-    }
-
-    set AutoUpdate(on) {
-        if (on && !this.AutoUpdate) {
-            this.update();
-            this[_timeoutHandler] = setInterval(() => { this.update(); }, this[_timeout]);
-        }
-        else if (!on && this.AutoUpdate) {
-            clearInterval(this[_timeoutHandler]);
-            this[_timeoutHandler] = null;
-        }
-    }
-
-    get RefreshTime() {
-        return this[_timeout];
-    }
-
-    set RefreshTime(time) {
-        this[_timeout] = Number(time);
-
-        if (this.AutoUpdate) {
-            clearInterval(this[_timeoutHandler]);
-            this.update();
-            this[_timeoutHandler] = setInterval(() => { this.update(); }, this[_timeout]);
-        }
     }
 
     get Services() { return this[_services]; }
-    get LastUpdate() { return this[_lastUpdate]; }
 
-    update() {
-        this[_lastUpdate] = new Date();
-    }
+    update() { super.update(); }
 }
 
 // If the OS is microsoft windows
@@ -76,8 +38,6 @@ if (/^win/.test(process.platform)) {
 
             this[_services] = services;
             super.update();
-
-            console.log(this.Services.map((elem) => elem.toJSON()));
         }
     }
 

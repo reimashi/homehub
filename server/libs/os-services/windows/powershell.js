@@ -20,9 +20,10 @@ var parseFormatList = function (result) {
             if (lastKey != null) {
                 // eleminamos saltos de linea
 
-                if (lastValue == "True") { lastValue = true; }
-                if (lastValue == "False") { lastValue = false; }
-                if (arrayRegex.test(lastValue)) {
+                if (lastValue == "null") { lastValue = null; }
+                else if (lastValue == "True") { lastValue = true; }
+                else if (lastValue == "False") { lastValue = false; }
+                else if (arrayRegex.test(lastValue)) {
                     var braketCropped = lastValue.substring(1, lastValue.length - 1).trim();
 
                     if (braketCropped.length > 1) lastValue = braketCropped.split(",").map((elem) => elem.trim());
