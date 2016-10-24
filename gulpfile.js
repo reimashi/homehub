@@ -51,21 +51,11 @@ gulp.task('build-client-styles', function () {
         .pipe(gulp.dest(config.basedir));
 });
 
-// Build server/run
-gulp.task('build-server-run', function () {
-    return nodemon({
-        script: 'server/index.js',
-        ext: 'js json html',
-        env: { 'NODE_ENV': 'development' },
-        watch: ["server"]
-    });
-});
-
 // File watch
-gulp.watch('client/angular/**/*.js', ['build-client-angular']);
-gulp.watch('client/scripts/**/*.js', ['build-client-scripts']);
-gulp.watch('client/views/**/*.html', ['build-client-views']);
-gulp.watch('client/styles/**/*.less', ['build-client-styles']);
+gulp.watch('client/angular/**/*.js', ['build-client-angular']).on('change', function (event) { console.log('File ' + event.path + ' was ' + event.type); });
+gulp.watch('client/scripts/**/*.js', ['build-client-scripts']).on('change', function (event) { console.log('File ' + event.path + ' was ' + event.type); });
+gulp.watch('client/views/**/*.html', ['build-client-views']).on('change', function (event) { console.log('File ' + event.path + ' was ' + event.type); });
+gulp.watch('client/styles/**/*.less', ['build-client-styles']).on('change', function (event) { console.log('File ' + event.path + ' was ' + event.type); });
 
 // Tasks
 gulp.task('build-client', [
@@ -75,10 +65,6 @@ gulp.task('build-client', [
     'build-client-views'
 ]);
 
-gulp.task('build-server', [
-    'build-server-run'
-]);
-
-gulp.task('build', ['build-client', 'build-server']);
+gulp.task('build', ['build-client']);
 
 gulp.task('default', []);

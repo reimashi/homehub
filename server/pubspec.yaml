@@ -1,0 +1,13 @@
+name: 'homehub_server'
+version: 0.0.1
+description: A bin server built using the shelf package.
+#author: Aitor González Fernández <reimashi@gmail.com>
+#homepage: https://github.com/reimashi/homehub
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dependencies:
+  args: '>=0.10.0 <0.14.0'
+  shelf: '>=0.6.0 <0.7.0'
+  mojito: '>=0.6.0 <0.7.0'
