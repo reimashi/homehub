@@ -1,10 +1,11 @@
 {
     "http": {
-        "enabled": false,
-        "port": 80
+        "enabled": true,
+        "port": 8080
     },
     "https": {
-        "port": 443,
+        "enabled": true,
+        "port": 8443,
         "privatekey": "privkey.pem",
         "certificate": "cert.pem"
     },
