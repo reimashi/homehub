@@ -1,0 +1,14 @@
+{
+  "name": "MySQL",
+  "license": "GPLv2",
+  "web": "http://www.mysql.com",
+  "images": [
+    { "type": "icon", "path": "mysql_icon.png" },
+    { "type": "banner", "path": "mysql_banner.png" }
+  ],
+  "processNames": ["mysqld"],
+  "serviceNames": ["MySQL5", "MySQL53", "MySQL55", "MySQL57"],
+  "services": [
+    { "type": "port", "defaultPort": 3306 }
+  ]
+}

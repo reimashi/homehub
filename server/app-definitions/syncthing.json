@@ -9,6 +9,6 @@
   "processNames": ["syncthing"],
   "serviceNames": ["Syncthing"],
   "services": [
-    { "type": "web_manager", "defaultPort": 8384 }
+    { "type": "web_manager", "protocol": "http", "defaultPort": 8384 }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "name": "Emby Server",
+  "license": "Privative",
+  "web": "https://emby.media",
+  "images": [
+    { "type": "icon", "path": "emby_icon.png" },
+    { "type": "banner", "path": "emby_banner.png" }
+  ],
+  "processNames": ["MediaBrowser.ServerApplication"],
+  "serviceNames": [],
+  "services": [
+    { "type": "web_manager", "protocol": "http", "defaultPort": 8096 }
+  ]
+}

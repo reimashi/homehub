@@ -1,0 +1,12 @@
+{
+  "name": "VMware Workstation",
+  "license": "Privative",
+  "web": "http://www.vmware.com",
+  "images": [
+    { "type": "icon", "path": "vmware_icon.png" },
+    { "type": "banner", "path": "vmware_banner.png" }
+  ],
+  "processNames": ["vmware-tray", "vmware-vmx"],
+  "serviceNames": [],
+  "services": []
+}

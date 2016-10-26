@@ -1,0 +1,14 @@
+{
+  "name": "Plex Media Server",
+  "license": "Privative",
+  "web": "https://www.plex.tv",
+  "images": [
+    { "type": "icon", "path": "plex_icon.png" },
+    { "type": "banner", "path": "plex_banner.png" }
+  ],
+  "processNames": ["Plex Media Server"],
+  "serviceNames": [],
+  "services": [
+    { "type": "web_manager", "protocol": "http", "defaultPort": 32400 }
+  ]
+}
