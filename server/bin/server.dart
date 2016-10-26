@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:mojito/mojito.dart' as mojito;
+import 'package:redstone/redstone.dart' as web;
+
+import './lib/os-utils/service-manager.dart';
 
 void main(List<String> args) {
   var parser = new ArgParser()
@@ -14,9 +16,6 @@ void main(List<String> args) {
     exit(1);
   });
 
-  var app = mojito.init(isDevMode: () => true);
-
-  app.router.get('/hi', () => Platform.operatingSystem);
-
-  app.start(port: port);
+  web.setupConsoleLog();
+  web.start(port: port);
 }
