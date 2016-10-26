@@ -39,9 +39,10 @@ abstract class Monitor {
     }
   }
 
-  void update() {
+  Future update() async {
     this._lastUpdate = new DateTime.now();
+    return new Future(() => true);
   }
 
-  void _Update(Timer t) => update();
+  void _Update(Timer t) { update(); }
 }

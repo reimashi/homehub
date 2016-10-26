@@ -38,5 +38,4 @@ jspm_packages
 
 # bower and autogenerate files
 htdocs
-key.pem
-server.crt
+*.pem

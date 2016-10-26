@@ -1,3 +1,5 @@
+import 'package:path/path.dart' as Path;
+
 class Program {
   String _name;
   String _fullName;
@@ -8,11 +10,15 @@ class Program {
     this._name = name;
     this._fullName = name;
     this._path = path;
+
+    if (this._name == null) {
+      this._name = Path.basenameWithoutExtension(path);
+    }
   }
 
   String get name => this._name;
 
-  String get fullName => this._fullName != null ? this.fullName : "";
+  String get fullName => this._fullName != null ? this._fullName : "";
   void set fullName(String fn) {
     this._fullName = fn;
   }
@@ -22,5 +28,5 @@ class Program {
     this._description = fn;
   }
 
-  String get Path => this._path;
+  String get path => this._path;
 }

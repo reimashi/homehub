@@ -1,0 +1,12 @@
+{
+  "name": "eMule",
+  "license": "GPLv2",
+  "web": "http://www.emule-project.net",
+  "images": [
+    { "type": "icon", "path": "emule_icon.png" },
+    { "type": "banner", "path": "emule_banner.png" }
+  ],
+  "processNames": ["emule"],
+  "serviceNames": [],
+  "services": []
+}
