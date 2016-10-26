@@ -1,0 +1,11 @@
+{
+  "name": "Syncthing",
+  "license": "MPLv2",
+  "web": "https://syncthing.net",
+  "icon": "syncthing.png",
+  "banner": "syncthing_banner.png",
+  "processName": ["syncthing.exe"],
+  "services": [
+    { "type": "web_manage", "defaultPort": 8123 }
+  ]
+}

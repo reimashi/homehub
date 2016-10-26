@@ -3,14 +3,14 @@ import './data/process.dart' as P;
 import './util/windows/powershell.dart';
 import './util/monitor.dart';
 
-abstract class ProcessManager extends Monitor {
+abstract class ProcessMonitor extends Monitor {
   List<P.Process> _processes = new List<P.Process>();
 
   List<P.Process> get processes => this._processes;
 
-  static ProcessManager GetOSManager() {
+  static ProcessMonitor GetOSManager() {
     if (new RegExp("^windows").hasMatch(Platform.operatingSystem)) {
-      return new WindowsProcessManager();
+      return new WindowsProcessMonitor();
     } else {
       throw new StateError(
           "ProcessManager is not implemented for the operative system " +
@@ -21,12 +21,12 @@ abstract class ProcessManager extends Monitor {
   void update() { super.update(); }
 }
 
-class WindowsProcessManager extends ProcessManager {
+class WindowsProcessMonitor extends ProcessMonitor {
   static final String _cmdListProcess =
       "Get-Process | select Name, Id, PriorityClass, ProductVersion, Path, Description, @{Name=\"StartTime\";Expression={\$_.StartTime.ToString(\"yyyy-MM-dd hh:mm:ss.ffff\")}}, WS | Format-List";
 
   void update() {
-    IPowerShellResponse response = PowerShell.execSync(WindowsProcessManager._cmdListProcess);
+    IPowerShellResponse response = PowerShell.execSync(WindowsProcessMonitor._cmdListProcess);
     List<Map<String, dynamic>> rawProcesses = PowerShellResponseParser.fromFormatList(response.toString());
     List<P.Process> processes = new List<P.Process>();
 
