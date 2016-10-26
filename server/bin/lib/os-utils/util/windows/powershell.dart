@@ -9,11 +9,16 @@ abstract class IPowerShellResponse {
 }
 
 class PowerShellResponse implements IPowerShellResponse {
-  static final _arrayRegex = new RegExp("/^{\\s*(?:\'[^\'\\\\]*(?:\\\\[\\S\\s][^\'\\\\]*)*\'|\"[^\"\\\\]*(?:\\\\[\\S\\s][^\"\\\\]*)*\"|[^,\'\"\\s\\\\]*(?:\\s+[^,\'\"\\s\\\\]+)*)\\s*(?:,\\s*(?:\'[^\'\\\\]*(?:\\\\[\\S\\s][^\'\\\\]*)*\'|\"[^\"\\\\]*(?:\\\\[\\S\\s][^\"\\\\]*)*\"|[^,\'\"\\s\\\\]*(?:\\s+[^,\'\"\\s\\\\]+)*)\\s*)*}\$/");
   static final _EOL = "\r\n";
 
-  List<String> _out;
-  List<String> _err;
+  List<String> _out = new List<String>();
+  List<String> _err = new List<String>();
+
+  PowerShellResponse() {}
+  PowerShellResponse.fromProcessResult(ProcessResult pr) {
+    this._out = pr.stdout.toString().split(_EOL);
+    this._err = pr.stderr.toString().length > 0 ? pr.stderr.toString().split(_EOL): new List<String>();
+  }
 
   void addLine(String line) {
     this._out.add(line);
@@ -25,10 +30,13 @@ class PowerShellResponse implements IPowerShellResponse {
 
   bool hasErrors() => this._err.length > 0;
   List<String> errors() => this._err;
-  String toString() => this._err.join();
+  List<String> lines() => this._out;
+  String toString() => this._out.join(_EOL);
 }
 
 class PowerShellResponseParser {
+  static final RegExp _arrayRegex = new RegExp("/^{\\s*(?:\'[^\'\\\\]*(?:\\\\[\\S\\s][^\'\\\\]*)*\'|\"[^\"\\\\]*(?:\\\\[\\S\\s][^\"\\\\]*)*\"|[^,\'\"\\s\\\\]*(?:\\s+[^,\'\"\\s\\\\]+)*)\\s*(?:,\\s*(?:\'[^\'\\\\]*(?:\\\\[\\S\\s][^\'\\\\]*)*\'|\"[^\"\\\\]*(?:\\\\[\\S\\s][^\"\\\\]*)*\"|[^,\'\"\\s\\\\]*(?:\\s+[^,\'\"\\s\\\\]+)*)\\s*)*}\$/");
+
   static List<Map<String, dynamic>> fromFormatList(String result) {
     List<String> lines = result.split(PowerShellResponse._EOL);
     List<Map<String, dynamic>> elements = new List<Map<String, dynamic>>();
@@ -47,7 +55,7 @@ class PowerShellResponseParser {
           if (lastValue == "null") { lastValue = null; }
           else if (lastValue == "True") { lastValue = true; }
           else if (lastValue == "False") { lastValue = false; }
-          else if (PowerShellResponse._arrayRegex.test(lastValue)) {
+          else if (lastValue.runtimeType == String && PowerShellResponseParser._arrayRegex.hasMatch(lastValue)) {
             String braketCropped = lastValue.substring(1, lastValue.length - 1).trim();
 
             if (braketCropped.length > 1) {
@@ -58,7 +66,7 @@ class PowerShellResponseParser {
             }
           }
 
-          element.putIfAbsent(lastKey, lastValue);
+          element.putIfAbsent(lastKey, () => lastValue);
           lastKey = null;
           lastValue = null;
         }
@@ -66,17 +74,18 @@ class PowerShellResponseParser {
 
       // If line empty, new element
       if (line.length == 0) {
-        if (element != null) { elements.add(element); }
+        if (element != null && element.isNotEmpty) { elements.add(element); }
         element = null;
       }
       // If : in line, new property
       else if (line.contains(":")) {
         if (element == null) { element = new Map(); }
 
-        var splitLine = line.split(":").map((elem) => elem.trim());
+        var splitLine = line.split(":");
+        lastKey = splitLine[0].trim();
 
-        lastKey = splitLine[0];
-        lastValue = splitLine[1] ? splitLine[1] : null;
+        splitLine = splitLine.sublist(1).join(":").trim();
+        lastValue = splitLine.length > 0 ? splitLine : null;
       }
       // If line not empty, add to property buffer
       else {
@@ -94,19 +103,11 @@ class PowerShell {
   static Future<IPowerShellResponse> exec(String command) async {
     return Process
       .run("powershell.exe", command.split(" "))
-      .then((ProcessResult pr) {
-        var psr = new PowerShellResponse();
-        psr.addLine(pr.stdout.toString());
-        psr.addError(pr.stderr.toString());
-        return psr;
-      });
+      .then((ProcessResult pr) => new PowerShellResponse.fromProcessResult(pr));
   }
 
   static IPowerShellResponse execSync(String command) {
     ProcessResult pr = Process.runSync("powershell.exe", command.split(" "));
-    var psr = new PowerShellResponse();
-    psr.addLine(pr.stdout.toString());
-    psr.addError(pr.stderr.toString());
-    return psr;
+    return new PowerShellResponse.fromProcessResult(pr);
   }
 }

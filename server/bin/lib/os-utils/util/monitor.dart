@@ -21,7 +21,7 @@ abstract class Monitor {
     if (this.autoRefresh) {
       this._timeoutHandler.cancel();
       this._timeoutHandler = null;
-      this.Update();
+      this.update();
       this._timeoutHandler = new Timer.periodic(
           new Duration(milliseconds: this.refreshTime), _Update);
     }
@@ -30,7 +30,7 @@ abstract class Monitor {
   bool get autoRefresh => this._timeoutHandler != null;
   void set autoRefresh(bool on) {
     if (on && !this.autoRefresh) {
-      this.Update();
+      this.update();
       this._timeoutHandler = new Timer.periodic(
           new Duration(milliseconds: this.refreshTime), _Update);
     } else if (!on && this.autoRefresh) {
@@ -39,9 +39,9 @@ abstract class Monitor {
     }
   }
 
-  void Update() {
+  void update() {
     this._lastUpdate = new DateTime.now();
   }
 
-  void _Update(Timer t) => Update();
+  void _Update(Timer t) => update();
 }
