@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     gulp_if = require('gulp-if'),
     less = require('gulp-less'),
     htmlmin = require('gulp-htmlmin'),
-    minify = require('gulp-minify-css'),
+    minify = require('gulp-clean-css'),
     nodemon = require('gulp-nodemon'),
     sourcemaps = require('gulp-sourcemaps');
 
@@ -47,7 +47,7 @@ gulp.task('build-client-styles', function () {
     return gulp.src('client/styles/main.less')
         .pipe(less())
         .pipe(concat('common.min.css'))
-        .pipe(gulp_if(!config.develop, minify({ keepBreaks: true })))
+        .pipe(gulp_if(!config.develop, minify({ keepBreaks: true, compatibility: 'ie8' })))
         .pipe(gulp.dest(config.basedir));
 });
 
@@ -67,4 +67,4 @@ gulp.task('build-client', [
 
 gulp.task('build', ['build-client']);
 
-gulp.task('default', []);
+gulp.task('default', ['build']);
