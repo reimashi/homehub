@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:dartson/dartson.dart';
 var DSON = new Dartson.JSON();
 
-class HttpConfig {
+class _HttpConfig {
   int port = 80;
   bool enabled = true;
 }
 
-class HttpsConfig {
+class _HttpsConfig {
   int port = 443;
   bool enabled = false;
   String privatekey;
@@ -16,8 +16,8 @@ class HttpsConfig {
 }
 
 class ServerConfig {
-  HttpConfig http = new HttpConfig();
-  HttpsConfig https = new HttpsConfig();
+  _HttpConfig http = new _HttpConfig();
+  _HttpsConfig https = new _HttpsConfig();
   String secret = "change_secret";
 
   static Future<ServerConfig> fromFile(String path) async {

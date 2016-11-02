@@ -14,8 +14,8 @@ abstract class ProcessMonitor extends Monitor {
       return new WindowsProcessMonitor();
     } else {
       throw new StateError(
-          "ProcessManager is not implemented for the operative system " +
-              Platform.operatingSystem);
+        "ProcessManager is not implemented for the operative system " +
+          Platform.operatingSystem);
     }
   }
 
